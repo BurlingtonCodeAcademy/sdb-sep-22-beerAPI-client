@@ -1,0 +1,6 @@
+.form-wrapper {
+    display: flex;
+    flex-direction: column;
+    max-width: 25vw;
+    gap: 0.2em
+}
