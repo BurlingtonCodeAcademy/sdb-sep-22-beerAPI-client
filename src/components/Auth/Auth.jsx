@@ -6,10 +6,23 @@ function Auth() {
     const [ lName, setlName ] = useState("")
     const [ email, setEmail ] = useState("")
     const [ password, setPassword ] = useState("")
-    const [ login, setLogin ] = useState(true)
+    const [ login, setLogin ] = useState(false)
+    console.log(fName, lName, email, password)
 
     const authState = () => {
         return login ? "Login" : "Signup"
+    }
+
+    const authButton = () => {
+        return !login ? "Login" : "Signup"
+    }
+
+    const authToggle = () => {
+        setLogin(!login)
+        setfName("")
+        setlName("")
+        setEmail("")
+        setPassword("")
     }
 
     const handleSubmit = e => {
@@ -43,8 +56,20 @@ function Auth() {
 
     const register = () => login ? null : (
         <>
-        <input type="text" className="fName" placeholder='Enter first name'/>
-        <input type="text" className='lName' placeholder='Enter last name'/>
+        <input
+            type="text"
+            value={fName}
+            onChange={e => setfName(e.target.value)} 
+            className="fName" 
+            placeholder='Enter first name'
+            />
+        <input
+            type="text"
+            value={lName} 
+            onChange={e => setlName(e.target.value)} 
+            className='lName' 
+            placeholder='Enter last name'
+        />
         </>
     )
 
@@ -54,9 +79,23 @@ function Auth() {
             <h1>{authState()}</h1>
             <form action="" className="form-wrapper">
                 {register()}
-                <input type="email" className="email" placeholder='Enter email' />
-                <input type="password" className="password" placeholder='Enter password'/>
+                <input 
+                    type="email"
+                    value={email}
+                    onChange={e => setEmail(e.target.value)}
+                    className="email"
+                    placeholder='Enter email'
+                />
+                <input
+                    type="password"
+                    value={password}
+                    onChange={e => setPassword(e.target.value)}
+                    className="password"
+                    placeholder='Enter password'
+                />
+                <button onClick={handleSubmit}>{authState()}</button>
             </form>
+            <button className="toggleAuth" onClick={authToggle}>{authButton()}</button>
         </div>
     )
 }
