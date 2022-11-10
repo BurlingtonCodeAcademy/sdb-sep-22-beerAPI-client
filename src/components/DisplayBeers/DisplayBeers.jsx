@@ -2,6 +2,9 @@ import React, { useState, useEffect } from 'react'
 
 function DisplayBeers({ sessionToken }) {
 
+    const [ beers, setBeers ] = useState([])
+    const [ displayBeers, setDisplayBeers ] = useState(false)
+
     const fetchBeers = () => {
         let url = "http://localhost:4000/api/"
 
@@ -13,13 +16,31 @@ function DisplayBeers({ sessionToken }) {
             })
         })
         .then(res => res.json())
-        .then(data => console.log(data))
+        .then(data => {setBeers(data); console.log(beers); setDisplayBeers(true)})
         .catch(err => console.log(err))
     }
 
-    fetchBeers()
+    useEffect(() => {
+      fetchBeers()
+    }, [displayBeers])
+
   return (
-    <div>DisplayBeers</div>
+    <div>
+      {
+        displayBeers ? beers.findAllBeers.map((beers, key) => {
+          return (
+            <>
+            <h1 key={key}>{beers.name}</h1>
+            <h1 key={key}>{beers.brewery}</h1>
+            <h1 key={key}>{beers.abv}</h1>
+            <h1 key={key}>{beers.origin}</h1>
+            <h1 key={key}>{beers.taste}</h1>
+            <h1 key={key}>{beers.type}</h1>
+            </>
+          )
+        }) : null
+      }
+    </div>
   )
 }
 
