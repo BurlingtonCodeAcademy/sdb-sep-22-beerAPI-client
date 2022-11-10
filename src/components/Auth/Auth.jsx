@@ -1,13 +1,14 @@
 import React, { useState } from 'react'
 import "./auth.css"
 
-function Auth() {
+// same as saying props.updateLocalStorage
+function Auth({ updateLocalStorage }) {
+    
     const [ fName, setfName ] = useState("")
     const [ lName, setlName ] = useState("")
     const [ email, setEmail ] = useState("")
     const [ password, setPassword ] = useState("")
     const [ login, setLogin ] = useState(false)
-    console.log(fName, lName, email, password)
 
     const authState = () => {
         return login ? "Login" : "Signup"
@@ -50,7 +51,7 @@ function Auth() {
             })
         })
         .then(res => res.json())
-        .then(data => console.log(data))
+        .then(data => updateLocalStorage(data.token))
         .catch(err => console.log(err))
     }
 
